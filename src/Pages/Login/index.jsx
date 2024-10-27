@@ -1,7 +1,30 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+const Login = () => {
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+	const navigate = useNavigate();
 
-function Login() {
+	const handleSubmit = (event) => {
+		event.preventDefault();
+
+		axios
+			.post("http://localhost:3001/login", { email, password })
+			.then((result) => {
+				console.log(result);
+				if (result.data === "Success") {
+					console.log("Login Success");
+					alert("Login successful!");
+					navigate("/home");
+				} else {
+					alert("Incorrect password! Please try again.");
+				}
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div className="flex min-h-screen bg-gray-900">
 			<div className="w-full lg:w-1/2 flex flex-col justify-center items-center px-8 py-12">
@@ -13,32 +36,45 @@ function Login() {
 						Entre com sua conta para acessar o sistema de entregas.
 					</p>
 
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className="mb-4">
-							<label className="block text-sm mb-2 text-white" htmlFor="email">
+							<label
+								className="block text-sm mb-2 text-white"
+								htmlFor="exampleInputEmail1"
+							>
 								Email
 							</label>
 							<input
 								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none"
-								type="email"
-								id="email"
 								placeholder="seuemail@exemplo.com"
+								type="email"
+								id="exampleInputEmail1"
+								onChange={(event) => setEmail(event.target.value)}
+								required
 							/>
 						</div>
 
 						<div className="mb-4">
-							<label className="block text-sm mb-2 text-white" htmlFor="password">
-								Senha 
+							<label
+								className="block text-sm mb-2 text-white"
+								htmlFor="exampleInputPassword1"
+							>
+								Senha
 							</label>
 							<input
 								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none"
-								type="password"
-								id="password"
 								placeholder="Digite sua senha"
+								type="password"
+								id="exampleInputPassword1"
+								onChange={(event) => setPassword(event.target.value)}
+								required
 							/>
 						</div>
 
-						<button type="submit" className="w-full bg-white text-black py-2 mt-5 rounded-lg font-bold">
+						<button
+							type="submit"
+							className="w-full bg-white text-black py-2 mt-5 rounded-lg font-bold"
+						>
 							Entrar
 						</button>
 
@@ -46,18 +82,14 @@ function Login() {
 							Novo por aqui?
 							<Link to="/" className="text-white">
 								Crie uma conta
-							</Link> 
+							</Link>
 						</p>
 					</form>
 				</div>
 			</div>
 
 			<div className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center bg-gray-800 rounded-l-3xl">
-				<img
-					src="/logoUPX.png"
-					alt="Logo"
-					className="max-w-md mb-6"
-				/>
+				<img src="/logoUPX.png" alt="Logo" className="max-w-md mb-6" />
 
 				<p className="text-2xl text-white uppercase tracking-widest">
 					RouteXpress
@@ -65,6 +97,6 @@ function Login() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Login;
