@@ -1,7 +1,7 @@
 function Dashboard() {
 
   return(
-    <div>
+    <div className="bg-red-400">
       <h1>Página de dashboard do cliente</h1>
     </div>
   )

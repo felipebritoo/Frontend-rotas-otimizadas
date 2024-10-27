@@ -28,7 +28,7 @@ function Login() {
 
 						<div className="mb-4">
 							<label className="block text-sm mb-2 text-white" htmlFor="password">
-								Senha
+								Senha 
 							</label>
 							<input
 								className="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none"
@@ -46,7 +46,7 @@ function Login() {
 							Novo por aqui?
 							<Link to="/" className="text-white">
 								Crie uma conta
-							</Link>
+							</Link> 
 						</p>
 					</form>
 				</div>
